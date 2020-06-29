@@ -50,7 +50,7 @@ sub startup_repository {
     for (
         ['00_rot13'              => 'First steps: rot13'],
         ['01_disemvowel'         => 'Add support for disemvowelling'],
-        ['02_trailing_line_feed' => 'Add trailing line feeds',],
+        ['02_trailing_line_feed' => 'Add trailing line feeds'],
         ['03_plugins'            => 'Add support for plugins']
         )
     {
@@ -62,8 +62,8 @@ sub startup_repository {
     # ones we'll be testing.
     git_ok('Create a new branch',       'branch',   'unwise');
     git_ok('Switch to that new branch', 'checkout', 'unwise');
-    for (['00_welsh' => 'Cope with Welsh vowels'],
-        ['01_windows' => 'Turn words into Windows filenames'])
+    for (['00_welsh'   => 'Cope with Welsh vowels'],
+         ['01_windows' => 'Turn words into Windows filenames'])
     {
         my ($subdir, $title) = @$_;
         _commit_files('unwise', $subdir, $title);
@@ -102,8 +102,8 @@ sub test_run_all_tests {
                 local $ENV{HARNESS_PERL_SWITCHES}
                     = sprintf('-MDevel::Cover=-dir,%s',
                     $coverage_dir{$branch});
-                system_ok('Run the tests', 'prove', '--lib', '--recurse',
-                    't');
+                system_ok('Run the tests',
+                          'prove', '--lib', '--recurse', 't');
                 local $ENV{HARNESS_PERL_SWITCHES} = '';
 
                 $coverage_report{$branch} = system_ok(
