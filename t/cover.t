@@ -8,6 +8,7 @@ use warnings;
 use lib::abs;
 use Capture::Tiny qw(capture);
 use Cwd;
+use Devel::Cover::DB;
 use Path::Class::Dir;
 use File::Copy::Recursive;
 use File::pushd;
@@ -105,6 +106,11 @@ sub test_run_all_tests {
                 system_ok('Run the tests',
                           'prove', '--lib', '--recurse', 't');
                 local $ENV{HARNESS_PERL_SWITCHES} = '';
+
+                $DB::single = $branch eq 'unwise';
+                my $db = Devel::Cover::DB->new(db =>
+                        $coverage_dir{$branch}->subdir('cover_db')->stringify);
+                1;
 
                 $coverage_report{$branch} = system_ok(
                     'Generate coverage',
